@@ -1,11 +1,12 @@
 function pasanganTerbesar(num) {
     var strNum = String(num);
-    var arrNum = [];
+    var countMax = 0;
     for(var i = 0; i < strNum.length - 1; i++) {
-        arrNum.push(Number(strNum[i] + strNum[i + 1]));
+        if(countMax < Number(strNum[i] + strNum[i + 1])) {
+            countMax = Number(strNum[i] + strNum[i + 1]);
+        }
     }
-    arrNum.sort();
-    return arrNum[arrNum.length - 1];
+    return countMax;
 }
 
 // TEST CASES
