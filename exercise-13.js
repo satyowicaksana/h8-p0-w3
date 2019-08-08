@@ -1,36 +1,34 @@
 function targetTerdekat(arr) {
-    if(arr.indexOf('o') < 0 || arr.indexOf('x') < 0) {
+    //Masukkan daftar nilai indeks dengan char 'o' pada arr ke array 2 dimensi baru di indeks 0
+    //Masukkan daftar nilai indeks dengan char 'x' pada arr ke array 2 dimensi baru di indeks 1
+    var arrIndexOX = [[], []];
+    for(var i = 0; i < arr.length; i++) {
+        if(arr[i] === 'o') {
+            arrIndexOX[0].push(i);
+        } else if(arr[i] === 'x') {
+            arrIndexOX[1].push(i);
+        }
+    }
+
+    //Jika tidak ada char 'o' atau char 'x', kembalikan 0
+    if(arrIndexOX[0].length === 0 || arrIndexOX[1].length === 0) {
         return 0;
     }
-    var countO = 0;
-    var countOMin = Infinity;
-    for(var i = arr.indexOf('o') + 1; i < arr.length; i++) {
-        countO += 1;
-        if(arr[i] === 'o') {
-            countO = 0;
-        } else if(arr[i] === 'x') {
-            if(countOMin > countO) {
-                countOMin = countO;
+
+    /* Bandingkan selisih antara setiap angka indeks 'o' dengan
+    setiap angka indeks 'x' dan simpan selisih terkecil */
+    var countMinDistance = Infinity;
+    var difference = 0;
+    for(var i = 0; i < arrIndexOX[0].length; i++) {
+        for(var j = 0; j < arrIndexOX[1].length; j++) {
+            difference = Math.abs(arrIndexOX[0][i] - arrIndexOX[1][j]);
+            if(countMinDistance > difference) {
+                countMinDistance = difference;
             }
         }
     }
-    var countX = 0;
-    var countXMin = Infinity;
-    for(var i = arr.indexOf('x') + 1; i < arr.length; i++) {
-        countX += 1;
-        if(arr[i] === 'x') {
-            countX = 0;
-        } else if(arr[i] === 'o') {
-            if(countXMin > countX) {
-                countXMin = countX;
-            }
-        }
-    }
-    if(countOMin < countXMin) {
-        return countOMin;
-    } else {
-        return countXMin;
-    }
+
+    return countMinDistance;
 }
 
 // TEST CASES
